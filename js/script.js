@@ -6,7 +6,10 @@ const remainingGuessesElement = document.querySelector(".remaining");
 const remainingGuessesSpan = document.querySelector(".remaining span");
 const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
+
 const word = "magnolia";
+const guessedLetters =[];
+
 
 // Display symbols as placeholders for the letters of selected word
 
@@ -14,10 +17,10 @@ const placeholder = function (word) {
   const placeholderLetters = [];
   for (const letter of word) {
     console.log(letter);
+    placeholderLetters.push("☀️");
     placeholderLetters.push("●");
   }
-
-  wordInProgress.innerText = placeholderLetters.join("");
+    wordInProgress.innerText = placeholderLetters.join("");
 };
 
 placeholder (word);
@@ -30,8 +33,9 @@ guessLetterButton.addEventListener("click", function (e) {
   const guess = letterInput.value;
   // Let's make sure that it is a single letter
   const goodGuess = validateInput(guess);
+
   if (goodGuess) {
-    //We've got a letter1 Let's guess!
+    //We've got a letter! Let's guess!
     makeGuess(guess);
   }
   letterInput.value = "";
@@ -39,21 +43,23 @@ guessLetterButton.addEventListener("click", function (e) {
 
 
 const validateInput = function (input){
-  const acceptedLetter = /[a-zA-Z]/
+  const acceptedLetter = /[a-zA-Z]/;
   if (input.length === 0) {
     //Is input empty?
     message.innerText = "Please enter a letter.";
 }  else if (input.length > 1) {
-  //Did you enter more than one letter?
+  //Did you type more than one letter?
   message.innerText = "Please enter a single letter."
 }  else if (!input.match(acceptedLetter)){
-  //Did you enter a number, a special character or symbol?
+  //Did you type a number, a special character or symbol?
   message.innerText = "Please enter a letter from A to Z";
  } else {
-  // You typed a letter ! Great!
+  // You got a single letter ! Great!
   return input;
  }
 };
+
+
   const makeGuess = function (guess){
     guess = guess.toUpperCase();
     if (guessedLettersElement.includes(guess)){
